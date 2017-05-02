@@ -18,6 +18,7 @@ then
 	FF="0"$FF
 fi
 TIMEHMSFF=$HMS"."$FF
+echo "video file           : "$IN
 echo "duration(hh:mm:ss.ms): "$TIMEHMSMS
 echo "duration(hh:mm:ss.ff): "$TIMEHMSFF
 echo "SOM     (hh:mm:ss.ff): "$SOM
