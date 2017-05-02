@@ -1,5 +1,8 @@
 #!/bin/bash
 
+while (($#))
+do
+
 IN=$1
 
 PARSE=$(ffmpeg -i "$IN" 2>&1|grep -E "Duration|fps")
@@ -18,3 +21,6 @@ TIMEHMSFF=$HMS"."$FF
 echo "duration(hh:mm:ss.ms): "$TIMEHMSMS
 echo "duration(hh:mm:ss.ff): "$TIMEHMSFF
 echo "SOM     (hh:mm:ss.ff): "$SOM
+
+shift
+done
