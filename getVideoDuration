@@ -1,0 +1,20 @@
+#!/bin/bash
+
+IN=$1
+
+PARSE=$(ffmpeg -i "$IN" 2>&1|grep -E "Duration|fps")
+TIMEHMSMS=$(echo $PARSE|sed 's/Duration: \(.*\), start.*/\1/g')
+FPS=$(echo $PARSE|sed -n "s/.*, \(.*\) fp.*/\1/p")
+
+SOM=$(ffmpeg -i "$IN" 2>&1|grep "timecode"|sed 's/timecode.*: \(.*\)/\1/g'|tr -d '[[:space:]]')
+HMS=$(echo $TIMEHMSMS|cut -d'.' -f1)
+MS=$(echo $TIMEHMSMS|cut -d'.' -f2)
+FF=$(echo $MS*$FPS/100|bc)
+if [ $FF -lt 10 ]
+then
+	FF="0"$FF
+fi
+TIMEHMSFF=$HMS"."$FF
+echo "duration(hh:mm:ss.ms): "$TIMEHMSMS
+echo "duration(hh:mm:ss.ff): "$TIMEHMSFF
+echo "SOM     (hh:mm:ss.ff): "$SOM
