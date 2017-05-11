@@ -43,7 +43,7 @@ tar xzvf yasm-1.3.0.tar.gz
 cd yasm-1.3.0
 ./configure --prefix="$INSTALL_BUILD" --bindir="$HOME/bin"
 make -j$(nproc)
-make -j$(nproc) install
+sudo make -j$(nproc) install
 make -j$(nproc) distclean
 }
 
@@ -56,7 +56,7 @@ tar xjvf last_x264.tar.bz2
 cd x264-snapshot*
 PATH="$HOME/bin:$PATH" ./configure --prefix="$INSTALL_BUILD" --bindir="$HOME/bin" --enable-static
 PATH="$HOME/bin:$PATH" make -j$(nproc)
-make -j$(nproc) install
+sudo make -j$(nproc) install
 make -j$(nproc) distclean
 }
 
@@ -67,7 +67,7 @@ cd $INSTALL_SRC
 hg clone https://bitbucket.org/multicoreware/x265
 cd x265
 cmake -G "Unix Makefiles" ./source
-make -j$(nproc) install
+sudo make -j$(nproc) install
 make -j$(nproc) distclean
 }
 
@@ -84,7 +84,7 @@ cd mstorsjo-fdk-aac*
 autoreconf -fiv
 ./configure --prefix="$INSTALL_BUILD" --disable-shared
 make -j$(nproc)
-make -j$(nproc) install
+sudo make -j$(nproc) install
 make -j$(nproc) distclean
 }
 
@@ -98,7 +98,7 @@ tar xzvf lame-3.99.5.tar.gz
 cd lame-3.99.5
 ./configure --prefix="$INSTALL_BUILD" --enable-nasm --disable-shared
 make -j$(nproc)
-make -j$(nproc) install
+sudo make -j$(nproc) install
 make -j$(nproc) distclean
 }
 
@@ -111,7 +111,7 @@ tar xzvf opus-1.1.3.tar.gz
 cd opus-1.1.3
 ./configure --prefix="$INSTALL_BUILD" --disable-shared
 make -j$(nproc)
-make -j$(nproc) install
+sudo make -j$(nproc) install
 make -j$(nproc) distclean
 }
 
@@ -124,7 +124,7 @@ tar xjvf libvpx-v1.6.0.tar.bz2
 cd libvpx-v1.6.0
 PATH="$HOME/bin:$PATH" ./configure --prefix="$INSTALL_BUILD" --disable-examples
 PATH="$HOME/bin:$PATH" make -j$(nproc)
-make -j$(nproc) install
+sudo make -j$(nproc) install
 make -j$(nproc) clean
 }
 
@@ -155,7 +155,7 @@ PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$INSTALL_BUILD/lib/pkgconfig" ./configur
   --enable-nonfree \
   --enable-nvenc
 PATH="$HOME/bin:$PATH" make -j$(nproc)
-make -j$(nproc) install
+sudo make -j$(nproc) install
 make -j$(nproc) distclean
 hash -r
 }
