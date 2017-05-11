@@ -9,10 +9,11 @@
 #export INSTALL_BUILD=$HOME/ffmpeg_build
 export INSTALL_SRC=/mnt/_build/ffmpeg/src
 export INSTALL_BUILD=/mnt/_build/ffmpeg/build
+export BINDIR=/usr/local/ffmpeg/bin
 
 mkdir -p $INSTALL_SRC
 mkdir -p $INSTALL_BUILD
-
+sudo mkdir -p $BINDIR
 
 installLibs(){
 echo "Installing prerequisites"
@@ -41,7 +42,7 @@ cd $INSTALL_SRC
 wget http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
 tar xzvf yasm-1.3.0.tar.gz
 cd yasm-1.3.0
-./configure --prefix="$INSTALL_BUILD" --bindir="$HOME/bin"
+./configure --prefix="$INSTALL_BUILD" --bindir="$BINDIR"
 make -j$(nproc)
 sudo make -j$(nproc) install
 make -j$(nproc) distclean
@@ -54,8 +55,8 @@ cd $INSTALL_SRC
 wget http://download.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
 tar xjvf last_x264.tar.bz2
 cd x264-snapshot*
-PATH="$HOME/bin:$PATH" ./configure --prefix="$INSTALL_BUILD" --bindir="$HOME/bin" --enable-static
-PATH="$HOME/bin:$PATH" make -j$(nproc)
+PATH="$BINDIR:$PATH" ./configure --prefix="$INSTALL_BUILD" --bindir="$BINDIR" --enable-static
+PATH="$BINDIR:$PATH" make -j$(nproc)
 sudo make -j$(nproc) install
 make -j$(nproc) distclean
 }
@@ -66,7 +67,7 @@ echo "Compiling libx265"
 cd $INSTALL_SRC
 hg clone https://bitbucket.org/multicoreware/x265
 cd ~/ffmpeg_sources/x265/build/linux
-PATH="$HOME/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$INSTALL_BUILD" -DENABLE_SHARED:bool=on ../../source
+PATH="$BINDIR:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$INSTALL_BUILD" -DENABLE_SHARED:bool=on ../../source
 sudo make -j$(nproc) install
 make -j$(nproc) distclean
 }
@@ -121,8 +122,8 @@ cd $INSTALL_SRC
 wget storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-1.6.0.tar.bz2
 tar xjvf libvpx-v1.6.0.tar.bz2
 cd libvpx-v1.6.0
-PATH="$HOME/bin:$PATH" ./configure --prefix="$INSTALL_BUILD" --disable-examples
-PATH="$HOME/bin:$PATH" make -j$(nproc)
+PATH="$BINDIR:$PATH" ./configure --prefix="$INSTALL_BUILD" --disable-examples
+PATH="$BINDIR:$PATH" make -j$(nproc)
 sudo make -j$(nproc) install
 make -j$(nproc) clean
 }
@@ -134,11 +135,11 @@ cd $INSTALL_SRC
 wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 tar xjvf ffmpeg-snapshot.tar.bz2
 cd ffmpeg
-PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$INSTALL_BUILD/lib/pkgconfig" ./configure \
+PATH="$BINDIR:$PATH" PKG_CONFIG_PATH="$INSTALL_BUILD/lib/pkgconfig" ./configure \
   --prefix="$INSTALL_BUILD" \
   --extra-cflags="-I$INSTALL_BUILD/include" \
   --extra-ldflags="-L$INSTALL_BUILD/lib" \
-  --bindir="$HOME/bin" \
+  --bindir="$BINDIR" \
   --enable-gpl \
   --enable-libass \
   --enable-libfdk-aac \
@@ -153,7 +154,7 @@ PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$INSTALL_BUILD/lib/pkgconfig" ./configur
   --enable-libx265 \
   --enable-nonfree \
   --enable-nvenc
-PATH="$HOME/bin:$PATH" make -j$(nproc)
+PATH="$BINDIR:$PATH" make -j$(nproc)
 sudo make -j$(nproc) install
 make -j$(nproc) distclean
 hash -r
