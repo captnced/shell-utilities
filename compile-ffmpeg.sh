@@ -66,7 +66,7 @@ compileLibX265(){
 echo "Compiling libx265"
 cd $INSTALL_SRC
 hg clone https://bitbucket.org/multicoreware/x265
-cd ~/ffmpeg_sources/x265/build/linux
+cd $INSTALL_SRC/x265/build/linux
 PATH="$BINDIR:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$INSTALL_BUILD" -DENABLE_SHARED:bool=on ../../source
 sudo make -j$(nproc) install
 make -j$(nproc) distclean
@@ -161,8 +161,7 @@ hash -r
 }
 
 #The process
-cd ~
-mkdir ffmpeg_sources
+cd $INSTALL_SRC
 installLibs
 installSDK
 compileYasm
