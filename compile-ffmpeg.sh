@@ -9,7 +9,8 @@
 #export INSTALL_BUILD=$HOME/ffmpeg_build
 export INSTALL_SRC=/mnt/_build/ffmpeg/src
 export INSTALL_BUILD=/mnt/_build/ffmpeg/build
-export BINDIR=/usr/local/ffmpeg/bin
+#export BINDIR=/usr/local/ffmpeg/bin
+export BINDIR=/usr/local/bin
 
 mkdir -p $INSTALL_SRC
 mkdir -p $INSTALL_BUILD
@@ -67,7 +68,10 @@ echo "Compiling libx265"
 cd $INSTALL_SRC
 hg clone https://bitbucket.org/multicoreware/x265
 cd $INSTALL_SRC/x265/build/linux
-PATH="$BINDIR:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$INSTALL_BUILD" -DENABLE_SHARED:bool=on ../../source
+PATH="$BINDIR:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$INSTALL_BUILD" -DENABLE_SHARED:bool=off ../../source
+sudo make -j$(nproc) install
+
+PATH="$BINDIR:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/usr/lib/x86_64-linux-gnu/" -DENABLE_SHARED:bool=off ../../source
 sudo make -j$(nproc) install
 make -j$(nproc) distclean
 }
