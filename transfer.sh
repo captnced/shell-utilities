@@ -57,7 +57,7 @@ then
 fi
 
 # WORKS BEST WITH LARGE FILES::
-echo -e $fg_yellow"zipping..."$reset && (cd $root && realpath "$@" --relative-to=$root|zip -r0 -q -P $passwd -X - -@)|pv -W -D 20 -r -p -s $totalsize"k" --buffer-size $buffersize"k">$archive && echo -e $fg_yellow"uploading..."$reset && URL=$(wget --method PUT --body-file=$archive "https://transfer.sh/$basefile" -O - -nv --report-speed=bits 2>/dev/null) && echo -e $fg_red"secured with password$reset '$passwd' --> $URL\r" && rm -f $archive
+echo -e $fg_yellow"zipping..."$reset && (cd $root && realpath "$@" --relative-to=$root|zip -r0 -q -P $passwd -X - -@)|pv -W -D 20 -r -p -s $totalsize"k" --buffer-size $buffersize"k">$archive && echo -e $fg_yellow"uploading..."$reset && URL=$(wget --method PUT --body-file=$archive "https://transfer.sh/$basefile" -O - -nv 2>/dev/null) && echo -e $fg_red"secured with password$reset '$passwd' --> $URL\r" && rm -f $archive
 
 echo
 
