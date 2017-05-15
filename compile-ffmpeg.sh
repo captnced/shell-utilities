@@ -139,9 +139,10 @@ tar xjvf ffmpeg-snapshot.tar.bz2
 cd ffmpeg
 PATH="$BINDIR:$PATH" PKG_CONFIG_PATH="$INSTALL_BUILD/lib/pkgconfig" ./configure \
   --prefix="$INSTALL_BUILD" \
+  --pkg-config-flags="--static" \
   --extra-cflags="-I$INSTALL_BUILD/include" \
   --extra-ldflags="-L$INSTALL_BUILD/lib" \
-  --pkg-config-flags="--static" \
+  --extra-ldexeflags="-static" \
   --bindir="$BINDIR" \
   --enable-gpl \
   --enable-libass \
