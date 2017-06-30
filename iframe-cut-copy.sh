@@ -47,7 +47,7 @@ then
     OUT=$DIR"/"$RN"_"$TCINS".ts"
     FF_DUR=""
 else
-    OUT=$DIR"/"$RN"_"$TCINS_$TCOUTS".ts"
+    OUT=$DIR"/"$RN"_"$TCINS"_"$TCOUTS".ts"
     #capture to duration
     TCOUTM1=$(($TCOUTS))
     TCOUTM2=$(($TCOUTS+$TCMARGIN))
